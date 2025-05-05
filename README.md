@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Koros
 
 Koros è un'applicazione web moderna costruita con Next.js 14, TypeScript e Tailwind CSS, che offre un'esperienza utente personalizzata basata su diversi profili (B2C, Pro, B2B).
@@ -107,3 +108,6 @@ Questo progetto è sotto licenza MIT. Vedi il file `LICENSE` per maggiori dettag
 ## Contatti
 
 - Repository: [https://github.com/Flv72S/Koros](https://github.com/Flv72S/Koros) 
+=======
+# Koros
+>>>>>>> ea719d711bb5468bd8f81e602f33feded6ca823a
