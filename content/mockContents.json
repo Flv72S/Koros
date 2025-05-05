@@ -1,0 +1,36 @@
+{
+  "contents": [
+    {
+      "id": "content-1",
+      "titolo": "Nuove Tecnologie nel Settore",
+      "descrizione": "Scopri le ultime innovazioni tecnologiche che stanno rivoluzionando il mercato.",
+      "immagine": "/images/tech.jpg",
+      "layoutTarget": "A",
+      "profiloTarget": ["buyer", "privato"]
+    },
+    {
+      "id": "content-2",
+      "titolo": "Intervista Esclusiva",
+      "descrizione": "Un'intervista approfondita con i leader del settore sulle tendenze future.",
+      "immagine": "/images/interview.jpg",
+      "layoutTarget": "B",
+      "profiloTarget": ["giornalista"]
+    },
+    {
+      "id": "content-3",
+      "titolo": "Guida all'Acquisto",
+      "descrizione": "Una guida completa per aiutarti a fare le scelte migliori nel tuo prossimo acquisto.",
+      "immagine": "/images/guide.jpg",
+      "layoutTarget": "C",
+      "profiloTarget": ["buyer", "privato"]
+    },
+    {
+      "id": "content-4",
+      "titolo": "Analisi di Mercato",
+      "descrizione": "Un'analisi dettagliata delle tendenze di mercato e delle opportunità emergenti.",
+      "immagine": "/images/market.jpg",
+      "layoutTarget": "B",
+      "profiloTarget": ["giornalista", "buyer"]
+    }
+  ]
+} 

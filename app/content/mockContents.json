@@ -1,0 +1,76 @@
+{
+  "contents": [
+    {
+      "id": 1,
+      "title": "Pacchetto Base",
+      "description": "Soluzione ideale per utenti privati che cercano funzionalità essenziali",
+      "image": "/images/basic-package.jpg",
+      "profileTarget": ["b2c"],
+      "price": "9.99",
+      "features": ["Funzionalità base", "Supporto email", "1 utente"]
+    },
+    {
+      "id": 2,
+      "title": "Pacchetto Pro",
+      "description": "Perfetto per professionisti che necessitano di strumenti avanzati",
+      "image": "/images/pro-package.jpg",
+      "profileTarget": ["pro"],
+      "price": "29.99",
+      "features": ["Funzionalità avanzate", "Supporto prioritario", "5 utenti"]
+    },
+    {
+      "id": 3,
+      "title": "Pacchetto Enterprise",
+      "description": "Soluzione completa per aziende di ogni dimensione",
+      "image": "/images/enterprise-package.jpg",
+      "profileTarget": ["b2b"],
+      "price": "99.99",
+      "features": ["Funzionalità enterprise", "Supporto 24/7", "Utenti illimitati"]
+    },
+    {
+      "id": 4,
+      "title": "Pacchetto Family",
+      "description": "Ideale per famiglie che vogliono gestire le proprie attività",
+      "image": "/images/family-package.jpg",
+      "profileTarget": ["b2c"],
+      "price": "19.99",
+      "features": ["Gestione familiare", "Controllo parentale", "4 utenti"]
+    },
+    {
+      "id": 5,
+      "title": "Pacchetto Freelance",
+      "description": "Strumenti essenziali per professionisti autonomi",
+      "image": "/images/freelance-package.jpg",
+      "profileTarget": ["pro"],
+      "price": "24.99",
+      "features": ["Gestione progetti", "Fatturazione", "3 utenti"]
+    },
+    {
+      "id": 6,
+      "title": "Pacchetto Team",
+      "description": "Collaborazione avanzata per team aziendali",
+      "image": "/images/team-package.jpg",
+      "profileTarget": ["b2b", "pro"],
+      "price": "49.99",
+      "features": ["Collaborazione team", "Gestione ruoli", "10 utenti"]
+    },
+    {
+      "id": 7,
+      "title": "Pacchetto Premium",
+      "description": "Esperienza premium per utenti esigenti",
+      "image": "/images/premium-package.jpg",
+      "profileTarget": ["b2c", "pro"],
+      "price": "39.99",
+      "features": ["Funzionalità premium", "Supporto VIP", "2 utenti"]
+    },
+    {
+      "id": 8,
+      "title": "Pacchetto Corporate",
+      "description": "Soluzione enterprise per grandi organizzazioni",
+      "image": "/images/corporate-package.jpg",
+      "profileTarget": ["b2b"],
+      "price": "199.99",
+      "features": ["Funzionalità corporate", "Supporto dedicato", "Utenti illimitati"]
+    }
+  ]
+} 
