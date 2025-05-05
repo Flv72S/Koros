@@ -1,58 +1,101 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 
-interface NavbarProps {
-  variant?: 'light' | 'dark'
-}
-
-export default function Navbar({ variant = 'light' }: NavbarProps) {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
-  const isDark = variant === 'dark'
-  const textColor = isDark ? 'text-white' : 'text-gray-900'
-  const hoverColor = isDark ? 'hover:text-gray-300' : 'hover:text-gray-600'
-  const bgColor = isDark ? 'bg-gray-900' : 'bg-white'
-  const borderColor = isDark ? 'border-gray-800' : 'border-gray-200'
+  // Gestisce la chiusura del menu quando si clicca fuori
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Gestisce il focus quando il menu si apre/chiude
+  useEffect(() => {
+    if (isMenuOpen) {
+      // Sposta il focus al primo link del menu
+      const firstLink = menuRef.current?.querySelector('a')
+      firstLink?.focus()
+    } else {
+      // Riporta il focus al pulsante del menu
+      buttonRef.current?.focus()
+    }
+  }, [isMenuOpen])
+
+  // Gestisce la chiusura del menu con ESC
+  useEffect(() => {
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [])
 
   return (
-    <nav className={`${bgColor} border-b ${borderColor} sticky top-0 z-50`}>
+    <nav 
+      className="bg-white shadow-sm"
+      role="navigation"
+      aria-label="Navigazione principale"
+    >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className={`text-xl font-bold ${textColor}`}>
+          <Link 
+            href="/"
+            className="text-xl font-bold text-primary"
+            aria-label="Koros - Torna alla home"
+          >
             Koros
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className={`${textColor} ${hoverColor}`}>
-              Home
-            </Link>
-            <Link href="/prodotti" className={`${textColor} ${hoverColor}`}>
+          {/* Menu Desktop */}
+          <div className="hidden md:flex space-x-8">
+            <Link 
+              href="/prodotti"
+              className="text-gray-700 hover:text-primary focus:outline-none focus:text-primary focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+            >
               Prodotti
             </Link>
-            <Link href="/prezzi" className={`${textColor} ${hoverColor}`}>
-              Prezzi
+            <Link 
+              href="/servizi"
+              className="text-gray-700 hover:text-primary focus:outline-none focus:text-primary focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+            >
+              Servizi
             </Link>
-            <Link href="/contatti" className={`${textColor} ${hoverColor}`}>
+            <Link 
+              href="/contatti"
+              className="text-gray-700 hover:text-primary focus:outline-none focus:text-primary focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+            >
               Contatti
             </Link>
-            <button className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark">
-              Inizia Ora
-            </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Pulsante Menu Mobile */}
           <button
-            className="md:hidden"
+            ref={buttonRef}
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={isMenuOpen ? "Chiudi menu" : "Apri menu"}
           >
             <svg
-              className={`w-6 h-6 ${textColor}`}
+              className="h-6 w-6"
               fill="none"
-              stroke="currentColor"
               viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
             >
               {isMenuOpen ? (
                 <path
@@ -73,44 +116,38 @@ export default function Navbar({ variant = 'light' }: NavbarProps) {
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4">
-            <div className="flex flex-col space-y-4">
-              <Link
-                href="/"
-                className={`${textColor} ${hoverColor}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="/prodotti"
-                className={`${textColor} ${hoverColor}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Prodotti
-              </Link>
-              <Link
-                href="/prezzi"
-                className={`${textColor} ${hoverColor}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Prezzi
-              </Link>
-              <Link
-                href="/contatti"
-                className={`${textColor} ${hoverColor}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contatti
-              </Link>
-              <button className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark w-full">
-                Inizia Ora
-              </button>
-            </div>
+        {/* Menu Mobile */}
+        <div
+          ref={menuRef}
+          id="mobile-menu"
+          className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}
+          role="menu"
+          aria-label="Menu mobile"
+        >
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            <Link
+              href="/prodotti"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-none focus:text-primary focus:bg-gray-50 focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              role="menuitem"
+            >
+              Prodotti
+            </Link>
+            <Link
+              href="/servizi"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-none focus:text-primary focus:bg-gray-50 focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              role="menuitem"
+            >
+              Servizi
+            </Link>
+            <Link
+              href="/contatti"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 focus:outline-none focus:text-primary focus:bg-gray-50 focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              role="menuitem"
+            >
+              Contatti
+            </Link>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   )
