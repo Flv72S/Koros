@@ -1,43 +1,100 @@
-<<<<<<< HEAD
-# Koros
+# Koros - Progetto Web
 
-Koros è un'applicazione web moderna costruita con Next.js 14, TypeScript e Tailwind CSS, che offre un'esperienza utente personalizzata basata su diversi profili (B2C, Pro, B2B).
+## Panoramica delle Funzionalità:
+- [x] Supporto multilingua (i18n)
+  - Gestione completa di più lingue (italiano, inglese)
+  - Rilevamento automatico della lingua preferita
+  - URL localizzati (es. `/it/chi-siamo`, `/en/about-us`)
+  - Selettore di lingua con bandiere e nomi nativi
+  - Persistenza della selezione della lingua
 
-## Caratteristiche
+- [x] Generazione contenuti AI
+  - Integrazione con modelli AI per la generazione di contenuti
+  - Supporto per diversi provider AI (OpenAI, ecc.)
+  - Configurazione flessibile dei parametri di generazione
+  - Caching dei contenuti generati
+  - Validazione e gestione degli errori
 
-- 🎨 Layout personalizzati per diversi profili utente
-- 📱 Design responsive e mobile-first
-- 🎯 Contenuti dinamici basati sul profilo utente
-- 📝 Supporto per contenuti Markdown
-- 🔄 Paginazione lato client
-- 🍪 Gestione dei cookie per il profilo utente
-- 🎭 Onboarding personalizzato
+- [x] Ottimizzazione SEO
+  - Metadati SEO configurabili per ogni pagina
+  - Supporto per Open Graph e Twitter Cards
+  - URL canonici per ogni lingua
+  - Tag hreflang per indicare le versioni alternative
+  - Gestione automatica dei metadati per contenuti dinamici
 
-## Struttura del Progetto
+- [x] Caching dei contenuti
+  - Cache lato client per contenuti statici
+  - Cache lato server per contenuti dinamici
+  - Invalidazione intelligente della cache
+  - Gestione della cache per contenuti AI
 
+- [x] Persistenza del layout di visualizzazione
+  - Salvataggio delle preferenze di layout
+  - Ripristino automatico delle impostazioni
+  - Supporto per diversi temi
+
+- [x] Modalità di reset soft/hard
+  - Reset soft: mantiene le preferenze utente
+  - Reset hard: ripristina tutte le impostazioni
+  - Conferma prima del reset
+
+- [x] Salvataggio dei filtri come "preferiti"
+  - Salvataggio automatico dei filtri usati frequentemente
+  - Gestione dei filtri preferiti
+  - Ripristino rapido dei filtri salvati
+
+- [x] Filtraggio avanzato combinato
+  - Logica booleana per le categorie
+  - Filtri multipli
+  - Salvataggio delle combinazioni di filtri
+
+- [x] Gestione autonoma del menu di navigazione
+  - Generazione automatica del menu
+  - Supporto per sottomenu
+  - Gestione delle autorizzazioni
+
+## Struttura del Progetto:
+
+### Organizzazione delle cartelle:
 ```
 app/
-├── components/         # Componenti riutilizzabili
-├── content/           # Contenuti Markdown e JSON
-├── layouts/           # Layout per diversi profili
-├── utils/             # Utility e helper
-└── api/               # API routes
+├── components/           # Componenti React riutilizzabili
+│   ├── SEO.tsx          # Gestione metadati SEO
+│   ├── LocaleSelector.tsx # Selettore lingua
+│   └── layouts/         # Layout dell'applicazione
+├── config/              # File di configurazione
+│   ├── i18n.ts         # Configurazione lingue
+│   └── menu.ts         # Configurazione menu e SEO
+├── hooks/              # Custom React hooks
+│   ├── useLocale.ts    # Hook gestione lingua
+│   └── useContentLoader.ts # Hook caricamento contenuti
+├── lib/                # Librerie e utility
+│   ├── ai/            # Gestione AI
+│   ├── cache/         # Sistema di caching
+│   └── content/       # Gestione contenuti
+└── pages/             # Pagine dell'applicazione
 ```
 
-## Tecnologie
+### Componenti Principali:
+- `ContentPage`: Gestisce la visualizzazione dei contenuti con supporto multilingua
+- `LayoutToggle`: Permette di cambiare il layout di visualizzazione
+- `useContentLoader`: Hook per il caricamento e la gestione dei contenuti
+- `LocaleSelector`: Componente per la selezione della lingua
+- `SEO`: Gestisce i metadati SEO per ogni pagina
+- `FilterManager`: Gestisce i filtri e le preferenze dell'utente
 
-- Next.js 14
-- TypeScript
-- Tailwind CSS
-- gray-matter (per i contenuti Markdown)
-- cookies-next (per la gestione dei cookie)
+### Configurazioni:
+- `app/config/i18n.ts`: Configurazione delle lingue supportate
+- `app/config/menu.ts`: Configurazione del menu e dei metadati SEO
+- `app/lib/ai/types.ts`: Configurazione dei provider AI
+- `app/lib/cache/config.ts`: Configurazione del sistema di caching
 
-## Installazione
+## Guida all'Installazione:
 
-1. Clona la repository:
+1. Clona il repository:
 ```bash
-git clone https://github.com/Flv72S/Koros.git
-cd Koros
+git clone https://github.com/your-username/koros.git
+cd koros
 ```
 
 2. Installa le dipendenze:
@@ -45,69 +102,170 @@ cd Koros
 npm install
 ```
 
-3. Avvia il server di sviluppo:
+3. Configura le variabili d'ambiente:
+```bash
+cp .env.example .env.local
+```
+
+4. Avvia il server di sviluppo:
 ```bash
 npm run dev
 ```
 
-4. Apri [http://localhost:3000](http://localhost:3000) nel tuo browser.
+## Configurazione Dettagliata:
 
-## Layout
+### Aggiungere una Nuova Lingua:
+1. Aggiorna `app/config/i18n.ts`:
+```typescript
+export const locales: Locale[] = [
+  {
+    code: 'fr',
+    name: 'French',
+    nativeName: 'Français',
+    direction: 'ltr',
+    flag: '🇫🇷'
+  }
+]
+```
 
-Il progetto include tre layout principali:
+2. Crea la struttura dei contenuti:
+```
+content/
+  ├── it/
+  │   └── home.md
+  └── fr/
+      └── home.md
+```
 
-- **Layout A (B2C)**: Design moderno e user-friendly per utenti consumer
-- **Layout B (Pro)**: Interfaccia professionale per utenti business
-- **Layout C (B2B)**: Design enterprise per grandi organizzazioni
+### Configurazione SEO:
+```typescript
+// app/config/menu.ts
+{
+  id: 'home',
+  label: 'Home',
+  slug: '/',
+  contentSource: 'markdown',
+  contentPath: 'home.md',
+  seo: {
+    title: 'Koros - Soluzioni Digitali',
+    description: '...',
+    keywords: '...',
+    ogTitle: '...',
+    ogDescription: '...'
+  }
+}
+```
 
-## Contenuti
+### Setup Generazione AI:
+```typescript
+// app/config/menu.ts
+{
+  id: 'ai-content',
+  contentSource: 'ai',
+  aiPrompt: 'Genera un articolo su...',
+  aiModel: 'gpt-4',
+  aiParameters: {
+    temperature: 0.7,
+    maxTokens: 1000
+  }
+}
+```
 
-I contenuti possono essere gestiti in due modi:
+### Configurazione Cache:
+```typescript
+// app/lib/cache/config.ts
+export const cacheConfig = {
+  ttl: 3600, // Time to live in seconds
+  maxSize: 1000, // Maximum number of items
+  storage: 'localStorage' // or 'sessionStorage'
+}
+```
 
-1. File Markdown nella cartella `/content`
-2. File JSON (`mockContents.json`) per contenuti di test
+### Configurazione Filtri Preferiti:
+```typescript
+// app/lib/filters/config.ts
+export const filterConfig = {
+  maxFavorites: 10,
+  autoSave: true,
+  persistence: 'localStorage'
+}
+```
 
-Ogni contenuto include:
-- Titolo
-- Descrizione
-- Immagine
-- Prezzo
-- Caratteristiche
-- Profili target
+## Esempi di Utilizzo:
 
-## Sviluppo
+### Cambio Lingua:
+```typescript
+const { changeLocale } = useLocale()
+changeLocale(newLocale)
+```
 
-### Comandi Disponibili
+### Generazione Contenuti:
+```typescript
+const { content, loading, error } = useContentLoader({
+  provider: new AIProvider(),
+  source: 'prompt',
+  type: 'ai'
+})
+```
 
-- `npm run dev`: Avvia il server di sviluppo
-- `npm run build`: Compila l'applicazione per la produzione
-- `npm run start`: Avvia l'applicazione in produzione
-- `npm run lint`: Esegue il linting del codice
+### Gestione SEO:
+```typescript
+<SEO
+  seo={menuItem.seo}
+  fallbackTitle="Titolo di Default"
+  fallbackDescription="Descrizione di Default"
+/>
+```
 
-### Struttura dei Componenti
+### Salvataggio Filtri:
+```typescript
+const { saveFilter, loadFilter } = useFilterManager()
+saveFilter('myFilter', { category: 'tech', sort: 'newest' })
+const filter = loadFilter('myFilter')
+```
 
-- `Navbar`: Barra di navigazione responsive
-- `Footer`: Footer con informazioni e link
-- `Hero`: Sezione hero con call-to-action
-- `Card`: Card per la visualizzazione dei contenuti
-- `Pagination`: Componente di paginazione
-- `OnboardingSelector`: Selettore del profilo utente
+### Cambio Layout:
+```typescript
+const { setLayout } = useLayoutManager()
+setLayout('grid') // or 'list', 'compact'
+```
 
-## Contribuire
+## Best Practices:
 
-1. Fork la repository
+### SEO:
+- Mantieni i titoli sotto i 60 caratteri
+- Usa descrizioni uniche per ogni pagina
+- Includi parole chiave rilevanti
+- Configura correttamente i meta tag social
+
+### Contenuti AI:
+- Valida sempre i contenuti generati
+- Usa prompt chiari e specifici
+- Implementa il caching per contenuti statici
+- Gestisci gli errori appropriatamente
+
+### Internazionalizzazione:
+- Usa nomi nativi per le lingue
+- Mantieni una struttura coerente dei contenuti
+- Implementa fallback appropriati
+- Considera le differenze culturali
+
+### Gestione Cache:
+- Imposta TTL appropriati
+- Implementa strategie di invalidazione
+- Monitora l'utilizzo della cache
+- Gestisci il fallback quando la cache è vuota
+
+## Informazioni per Contribuire:
+
+1. Fork il repository
 2. Crea un branch per la tua feature (`git checkout -b feature/AmazingFeature`)
 3. Commit le tue modifiche (`git commit -m 'Add some AmazingFeature'`)
 4. Push al branch (`git push origin feature/AmazingFeature`)
 5. Apri una Pull Request
 
-## Licenza
+## Licenza:
+Questo progetto è sotto la licenza MIT. Vedi il file `LICENSE` per maggiori dettagli.
 
-Questo progetto è sotto licenza MIT. Vedi il file `LICENSE` per maggiori dettagli.
-
-## Contatti
-
-- Repository: [https://github.com/Flv72S/Koros](https://github.com/Flv72S/Koros) 
-=======
-# Koros
->>>>>>> ea719d711bb5468bd8f81e602f33feded6ca823a
+## Supporto:
+Per supporto, email support@koros.com o apri un issue nel repository.

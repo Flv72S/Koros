@@ -1,47 +1,98 @@
+import { useLayoutPreference } from '../hooks/useLayoutPreference'
+
 interface CardProps {
-  id: number
+  id: string
   title: string
   description: string
   image: string
-  price: string
-  features: string[]
+  price: number
+  category: string[]
 }
 
-export default function Card({ title, description, image, price, features }: CardProps) {
+export default function Card({ id, title, description, image, price, category }: CardProps) {
+  const { layout } = useLayoutPreference()
+
+  if (layout === 'list') {
+    return (
+      <article
+        className="flex gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+        aria-labelledby={`card-title-${id}`}
+      >
+        <div className="flex-shrink-0 w-32 h-32">
+          <img
+            src={image}
+            alt=""
+            className="w-full h-full object-cover rounded-md"
+          />
+        </div>
+        <div className="flex-grow">
+          <h3
+            id={`card-title-${id}`}
+            className="text-lg font-semibold text-gray-900 mb-2"
+          >
+            {title}
+          </h3>
+          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+            {description}
+          </p>
+          <div className="flex items-center justify-between">
+            <div className="flex flex-wrap gap-2">
+              {category.map((cat) => (
+                <span
+                  key={cat}
+                  className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full"
+                >
+                  {cat}
+                </span>
+              ))}
+            </div>
+            <span className="text-lg font-semibold text-primary">
+              {price === 0 ? 'Gratuito' : `${price}€`}
+            </span>
+          </div>
+        </div>
+      </article>
+    )
+  }
+
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-      <div className="aspect-w-16 aspect-h-9 bg-gray-100">
+    <article
+      className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+      aria-labelledby={`card-title-${id}`}
+    >
+      <div className="aspect-w-16 aspect-h-9">
         <img
           src={image}
-          alt={title}
-          className="object-cover w-full h-full"
+          alt=""
+          className="w-full h-full object-cover"
         />
       </div>
-      
-      <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600 mb-4">{description}</p>
-        
-        <div className="mb-4">
-          <span className="text-2xl font-bold text-primary">€{price}</span>
-          <span className="text-gray-500 text-sm">/mese</span>
+      <div className="p-4">
+        <h3
+          id={`card-title-${id}`}
+          className="text-lg font-semibold text-gray-900 mb-2"
+        >
+          {title}
+        </h3>
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          {description}
+        </p>
+        <div className="flex items-center justify-between">
+          <div className="flex flex-wrap gap-2">
+            {category.map((cat) => (
+              <span
+                key={cat}
+                className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full"
+              >
+                {cat}
+              </span>
+            ))}
+          </div>
+          <span className="text-lg font-semibold text-primary">
+            {price === 0 ? 'Gratuito' : `${price}€`}
+          </span>
         </div>
-        
-        <ul className="space-y-2 mb-6">
-          {features.map((feature, index) => (
-            <li key={index} className="flex items-center text-gray-600">
-              <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              {feature}
-            </li>
-          ))}
-        </ul>
-        
-        <button className="w-full bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors">
-          Inizia Ora
-        </button>
       </div>
-    </div>
+    </article>
   )
 } 

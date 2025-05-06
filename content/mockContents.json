@@ -6,7 +6,9 @@
       "descrizione": "Scopri le ultime innovazioni tecnologiche che stanno rivoluzionando il mercato.",
       "immagine": "/images/tech.jpg",
       "layoutTarget": "A",
-      "profiloTarget": ["buyer", "privato"]
+      "profiloTarget": ["buyer", "privato"],
+      "category": ["tech", "innovazione"],
+      "price": 0
     },
     {
       "id": "content-2",
@@ -14,7 +16,9 @@
       "descrizione": "Un'intervista approfondita con i leader del settore sulle tendenze future.",
       "immagine": "/images/interview.jpg",
       "layoutTarget": "B",
-      "profiloTarget": ["giornalista"]
+      "profiloTarget": ["giornalista"],
+      "category": ["interviste", "business"],
+      "price": 49
     },
     {
       "id": "content-3",
@@ -22,7 +26,9 @@
       "descrizione": "Una guida completa per aiutarti a fare le scelte migliori nel tuo prossimo acquisto.",
       "immagine": "/images/guide.jpg",
       "layoutTarget": "C",
-      "profiloTarget": ["buyer", "privato"]
+      "profiloTarget": ["buyer", "privato"],
+      "category": ["guide", "acquisti"],
+      "price": 29
     },
     {
       "id": "content-4",
@@ -30,7 +36,9 @@
       "descrizione": "Un'analisi dettagliata delle tendenze di mercato e delle opportunità emergenti.",
       "immagine": "/images/market.jpg",
       "layoutTarget": "B",
-      "profiloTarget": ["giornalista", "buyer"]
+      "profiloTarget": ["giornalista", "buyer"],
+      "category": ["analisi", "business"],
+      "price": 99
     }
   ]
 } 
