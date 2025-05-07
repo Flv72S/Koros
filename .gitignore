@@ -1,13 +1,19 @@
+<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+=======
+>>>>>>> dc880dd93f05e2deac01820dc38cf6e421dff184
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
+<<<<<<< HEAD
 .yarn/install-state.gz
 
 /.idea/*
 !/.idea/runConfigurations
+=======
+>>>>>>> dc880dd93f05e2deac01820dc38cf6e421dff184
 
 # testing
 /coverage
@@ -30,14 +36,22 @@ yarn-error.log*
 
 # local env files
 .env*.local
+<<<<<<< HEAD
+=======
+.env
+>>>>>>> dc880dd93f05e2deac01820dc38cf6e421dff184
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
+<<<<<<< HEAD
 next-env.d.ts
 
 .env
 
 /media
+=======
+next-env.d.ts 
+>>>>>>> dc880dd93f05e2deac01820dc38cf6e421dff184

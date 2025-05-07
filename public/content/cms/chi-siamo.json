@@ -1,0 +1,16 @@
+{
+  "id": "chi-siamo",
+  "title": "Chi Siamo",
+  "description": "La nostra storia e i nostri valori",
+  "content": "# La Nostra Storia\n\nFondata nel 2020, Koros è nata dalla visione di creare una piattaforma che rendesse la gestione dei contenuti semplice e accessibile a tutti.\n\n## I Nostri Valori\n\n- **Innovazione**: Ricerchiamo costantemente nuove soluzioni\n- **Qualità**: Ci impegniamo per l'eccellenza in ogni aspetto\n- **Collaborazione**: Crediamo nel potere del lavoro di squadra\n\n## Il Nostro Team\n\nIl nostro team è composto da professionisti esperti nel campo dello sviluppo software e della gestione dei contenuti digitali.",
+  "updatedAt": "2024-03-20T10:00:00Z",
+  "author": "Koros Team",
+  "tags": ["azienda", "storia", "valori"],
+  "metadata": {
+    "seo": {
+      "title": "Chi Siamo - Koros",
+      "description": "Scopri la storia e i valori di Koros, la piattaforma per la gestione dei contenuti",
+      "keywords": ["koros", "chi siamo", "storia", "valori", "team"]
+    }
+  }
+} 
